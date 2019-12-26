@@ -14,7 +14,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>worlds-best-best-clinic</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.0.2</version>
     <name>worlds-best-best-clinic</name>
     <description>Demo project for Spring Boot</description>
 
@@ -37,6 +37,10 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <goals>install</goals>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <checkModificationExcludes>
+                        <checkModificationExclude>pom.xml</checkModificationExclude>
+                    </checkModificationExcludes>
                 </configuration>
             </plugin>
         </plugins>
@@ -44,7 +48,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:mpq1990/WorldsBestPetClinic.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>worlds-best-best-clinic-0.0.2</tag>
+    </scm>
 
 </project>
