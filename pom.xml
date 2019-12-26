@@ -14,7 +14,7 @@
     </parent>
     <groupId>com.example</groupId>
     <artifactId>worlds-best-best-clinic</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>worlds-best-best-clinic</name>
     <description>Demo project for Spring Boot</description>
 
@@ -44,7 +44,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:mpq1990/WorldsBestPetClinic.git</developerConnection>
-      <tag>worlds-best-best-clinic-0.0.1</tag>
+      <tag>HEAD</tag>
   </scm>
 
 </project>
