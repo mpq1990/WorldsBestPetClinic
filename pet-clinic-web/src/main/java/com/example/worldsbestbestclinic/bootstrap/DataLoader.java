@@ -75,6 +75,8 @@ public class DataLoader implements CommandLineRunner {
 
         Visit conansPetVisit1 = new Visit();
         conansPetVisit1.setDescription("The cat has the flu!");
+        conansPetVisit1.setPet(conansPet);
+        conansPet.getVisits().add(conansPetVisit1);
         visitService.save(conansPetVisit1);
 
         Owner owner2 = new Owner();
