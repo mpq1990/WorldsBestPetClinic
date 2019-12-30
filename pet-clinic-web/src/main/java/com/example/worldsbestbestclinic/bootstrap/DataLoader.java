@@ -1,10 +1,7 @@
 package com.example.worldsbestbestclinic.bootstrap;
 
 import com.example.worldsbestbestclinic.model.*;
-import com.example.worldsbestbestclinic.services.OwnerService;
-import com.example.worldsbestbestclinic.services.PetTypeService;
-import com.example.worldsbestbestclinic.services.SpecialityService;
-import com.example.worldsbestbestclinic.services.VetService;
+import com.example.worldsbestbestclinic.services.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -17,12 +14,14 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -73,6 +72,10 @@ public class DataLoader implements CommandLineRunner {
         conansPet.setName("Scooby");
         owner1.getPets().add(conansPet);
         ownerService.save(owner1);
+
+        Visit conansPetVisit1 = new Visit();
+        conansPetVisit1.setDescription("The cat has the flu!");
+        visitService.save(conansPetVisit1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Jordan");
