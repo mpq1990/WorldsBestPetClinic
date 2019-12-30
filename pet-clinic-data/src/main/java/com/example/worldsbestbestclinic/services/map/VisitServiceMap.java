@@ -17,8 +17,8 @@ public class VisitServiceMap extends AbstractServiceMap<Visit, Long> implements 
     }
 
     @Override
-    public void delete(Visit object) {
-        super.delete(object);
+    public void delete(Visit visit) {
+        super.delete(visit);
     }
 
     @Override
