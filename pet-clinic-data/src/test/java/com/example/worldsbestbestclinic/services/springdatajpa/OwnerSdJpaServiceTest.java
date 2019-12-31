@@ -17,8 +17,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerSdJpaServiceTest {
@@ -93,12 +92,12 @@ class OwnerSdJpaServiceTest {
     @Test
     void delete() {
         ownerSdJpaService.delete(ownerRepository.findById(1L).orElse(null));
-        verify(ownerRepository).delete(any());
+        verify(ownerRepository, times(1)).delete(any());
     }
 
     @Test
     void deleteById() {
         ownerSdJpaService.deleteById(1L);
-        verify(ownerRepository).deleteById(any());
+        verify(ownerRepository, times(1)).deleteById(any());
     }
 }
