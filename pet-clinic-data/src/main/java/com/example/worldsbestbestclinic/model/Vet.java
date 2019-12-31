@@ -9,11 +9,19 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
 @Table(name = "vets")
 public class Vet extends Person {
+    public Vet(Set<Speciality> specialities) {
+        this.specialities = specialities;
+    }
+
+    @Builder
+    public Vet(Long id, String firstName, String lastName, Set<Speciality> specialities) {
+        super(id, firstName, lastName);
+        this.specialities = specialities;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_specialities",
             joinColumns = @JoinColumn(name = "vet_id"),
