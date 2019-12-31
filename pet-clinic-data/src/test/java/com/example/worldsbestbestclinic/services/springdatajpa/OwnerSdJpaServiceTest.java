@@ -21,7 +21,9 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class OwnerSdJpaServiceTest {
+
     public static final String LAST_NAME = "John";
+
     @Mock
     OwnerRepository ownerRepository;
     @Mock
@@ -79,7 +81,6 @@ class OwnerSdJpaServiceTest {
 
     @Test
     void save() {
-
         Owner owner = Owner.builder().id(2L).build();
         when(ownerRepository.save(any())).thenReturn(owner);
 
