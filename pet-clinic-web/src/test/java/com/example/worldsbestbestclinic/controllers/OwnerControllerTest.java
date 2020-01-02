@@ -9,14 +9,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.core.Is.is;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -55,5 +56,18 @@ class OwnerControllerTest {
     void findOwners() throws Exception {
         mockMvc.perform(get("/owners/find")).andExpect(status().isOk()).
                 andExpect(view().name("notImplemented"));
+    }
+
+    @Test
+    void showOwner() throws Exception {
+        Owner owner = Owner.builder().id(1L).build();
+
+        when(ownerService.findById(anyLong())).thenReturn(owner);
+
+        mockMvc.perform((get("/owners/1"))).
+                andExpect(status().isOk()).
+                andExpect(view().name("owners/ownerDetails")).
+                andExpect(model().attributeExists("owner")).
+                andExpect(model().attribute("owner", hasProperty("id", is(1L))));
     }
 }
