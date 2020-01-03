@@ -11,9 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -100,5 +98,16 @@ class OwnerSdJpaServiceTest {
     void deleteById() {
         ownerSdJpaService.deleteById(1L);
         verify(ownerRepository, times(1)).deleteById(any());
+    }
+
+    @Test
+    void findAllByLastNameLike() {
+        when(ownerRepository.findAllByLastNameLike(anyString())).
+                thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+                        Owner.builder().id(2L).build()));
+
+        List<Owner> returnedOwners = ownerSdJpaService.findAllByLastNameLike(anyString());
+        assertEquals(2, returnedOwners.size());
+
     }
 }

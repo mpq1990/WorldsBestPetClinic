@@ -4,6 +4,7 @@ import com.example.worldsbestbestclinic.model.Owner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -64,5 +65,18 @@ class OwnerServiceMapTest {
         Owner owner = ownerServiceMap.findByLastName(LAST_NAME);
         assertNotNull(owner);
         assertEquals(LAST_NAME, owner.getLastName());
+    }
+
+    @Test
+    void findAllByLastNameLike() {
+        Owner ownerTwo = Owner.builder().lastName("Jeffert").build();
+        ownerServiceMap.save(ownerTwo);
+        Owner ownerThree = Owner.builder().lastName("norman").build();
+        ownerServiceMap.save(ownerThree);
+
+        List<Owner> returnedOwners = ownerServiceMap.findAllByLastNameLike("jeff");
+
+        assertEquals(2, returnedOwners.size());
+        assertEquals(3, ownerServiceMap.findAll().size());
     }
 }
