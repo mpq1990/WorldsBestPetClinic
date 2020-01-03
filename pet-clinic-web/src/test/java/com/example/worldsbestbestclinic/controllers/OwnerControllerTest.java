@@ -69,7 +69,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormReturnMany() throws Exception {
-        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+        when(ownerService.findAllByLastNameContains(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
                 Owner.builder().id(2L).build()));
 
         mockMvc.perform(get("/owners")).
@@ -80,7 +80,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormReturnOne() throws Exception {
-        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().
+        when(ownerService.findAllByLastNameContains(anyString())).thenReturn(Arrays.asList(Owner.builder().
                 id(1L).build()));
 
         mockMvc.perform(get("/owners")).
@@ -90,7 +90,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormReturnAllWhenEmpty() throws Exception {
-        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+        when(ownerService.findAllByLastNameContains(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
                 Owner.builder().id(2L).build()));
 
         mockMvc.perform(get("/owners").
@@ -102,7 +102,7 @@ class OwnerControllerTest {
 
     @Test
     void processFindFormReturnAllWhenNull() throws Exception {
-        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+        when(ownerService.findAllByLastNameContains(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
                 Owner.builder().id(2L).build()));
 
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
@@ -112,8 +112,8 @@ class OwnerControllerTest {
                 andExpect(status().isOk()).
                 andExpect(model().attribute("selections", hasSize(2))).
                 andExpect(view().name("owners/ownerList"));
-        verify(ownerService, times(1)).findAllByLastNameLike(captor.capture());
-        assertEquals("%%", captor.getValue());
+        verify(ownerService, times(1)).findAllByLastNameContains(captor.capture());
+        assertEquals("", captor.getValue());
     }
 
     @Test

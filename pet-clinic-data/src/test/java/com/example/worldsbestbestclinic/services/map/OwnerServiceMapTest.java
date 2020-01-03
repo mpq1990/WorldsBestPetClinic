@@ -74,7 +74,7 @@ class OwnerServiceMapTest {
         Owner ownerThree = Owner.builder().lastName("norman").build();
         ownerServiceMap.save(ownerThree);
 
-        List<Owner> returnedOwners = ownerServiceMap.findAllByLastNameLike("jeff");
+        List<Owner> returnedOwners = ownerServiceMap.findAllByLastNameContains("jeff");
 
         assertEquals(2, returnedOwners.size());
         assertEquals(3, ownerServiceMap.findAll().size());

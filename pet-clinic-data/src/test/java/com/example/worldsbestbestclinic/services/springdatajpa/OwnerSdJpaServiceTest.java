@@ -102,11 +102,11 @@ class OwnerSdJpaServiceTest {
 
     @Test
     void findAllByLastNameLike() {
-        when(ownerRepository.findAllByLastNameLike(anyString())).
+        when(ownerRepository.findAllByLastNameContains(anyString())).
                 thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
                         Owner.builder().id(2L).build()));
 
-        List<Owner> returnedOwners = ownerSdJpaService.findAllByLastNameLike(anyString());
+        List<Owner> returnedOwners = ownerSdJpaService.findAllByLastNameContains(anyString());
         assertEquals(2, returnedOwners.size());
 
     }
