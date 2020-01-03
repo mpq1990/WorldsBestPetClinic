@@ -5,6 +5,7 @@ import com.example.worldsbestbestclinic.services.OwnerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -19,6 +20,7 @@ import java.util.Set;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
@@ -84,6 +86,34 @@ class OwnerControllerTest {
         mockMvc.perform(get("/owners")).
                 andExpect(status().is3xxRedirection()).
                 andExpect(view().name("redirect:/owners/1"));
+    }
+
+    @Test
+    void processFindFormReturnAllWhenEmpty() throws Exception {
+        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+                Owner.builder().id(2L).build()));
+
+        mockMvc.perform(get("/owners").
+                param("lastName", "")).
+                andExpect(status().isOk()).
+                andExpect(model().attribute("selections", hasSize(2))).
+                andExpect(view().name("owners/ownerList"));
+    }
+
+    @Test
+    void processFindFormReturnAllWhenNull() throws Exception {
+        when(ownerService.findAllByLastNameLike(anyString())).thenReturn(Arrays.asList(Owner.builder().id(1L).build(),
+                Owner.builder().id(2L).build()));
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+
+
+        mockMvc.perform(get("/owners")).
+                andExpect(status().isOk()).
+                andExpect(model().attribute("selections", hasSize(2))).
+                andExpect(view().name("owners/ownerList"));
+        verify(ownerService, times(1)).findAllByLastNameLike(captor.capture());
+        assertEquals("%%", captor.getValue());
     }
 
     @Test
