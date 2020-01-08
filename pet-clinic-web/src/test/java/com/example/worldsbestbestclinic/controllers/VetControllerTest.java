@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -48,5 +49,13 @@ class VetControllerTest {
         mockMvc.perform(get("/vets")).andExpect(status().isOk())
                 .andExpect(view().name("vets/index"))
                 .andExpect(model().attribute("vets", hasSize(2)));
+    }
+
+    @Test
+    void getVetsJson() throws Exception {
+        when(vetService.findAll()).thenReturn(vetSet);
+        mockMvc.perform(get("/api/vets")).
+                andExpect(status().isOk()).
+                andExpect(content().string("[{\"id\":1,\"firstName\":null,\"lastName\":null,\"specialities\":null,\"new\":false},{\"id\":2,\"firstName\":null,\"lastName\":null,\"specialities\":null,\"new\":false}]"));
     }
 }
