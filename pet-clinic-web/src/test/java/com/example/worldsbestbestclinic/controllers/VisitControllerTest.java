@@ -54,19 +54,19 @@ class VisitControllerTest {
         Long id = 1L;
         when(petService.findById(anyLong()))
                 .thenReturn(
-                        Pet.builder()
-                                .id(id)
-                                .birthDate(LocalDate.of(2018, 11, 13))
-                                .name("Scooby")
-                                .visits(new HashSet<>())
-                                .owner(Owner.builder()
-                                        .id(id)
-                                        .lastName("Conan")
-                                        .firstName("O'brain")
-                                        .build())
-                                .petType(PetType.builder()
-                                        .name("Dog").build())
-                                .build()
+                        Pet.builder().
+                                id(id).
+                                birthDate(LocalDate.of(2018, 11, 13)).
+                                name("Scooby").
+                                visits(new HashSet<>()).
+                                owner(Owner.builder().
+                                        id(id).
+                                        lastName("Conan").
+                                        firstName("O'brain").
+                                        build()).
+                                petType(PetType.builder().
+                                        name("Dog").build()).
+                                build()
                 );
 
         uriVariables.clear();
@@ -77,20 +77,19 @@ class VisitControllerTest {
 
     @Test
     void initNewVisitForm() throws Exception {
-        mockMvc.perform(get(visitsUri))
-                .andExpect(status().isOk())
-                .andExpect(view().name("pets/createOrUpdateVisitForm"));
+        mockMvc.perform(get(visitsUri)).
+                andExpect(status().isOk()).
+                andExpect(view().name("pets/createOrUpdateVisitForm"));
     }
 
     @Test
     void processNewVisitForm() throws Exception {
-        mockMvc.perform(post(visitsUri)
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("date","2018-11-11")
-                .param("description", "Some visit description"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/owners/1"))
-                .andExpect(model().attributeExists("visit"))
-        ;
+        mockMvc.perform(post(visitsUri).
+                contentType(MediaType.APPLICATION_FORM_URLENCODED).
+                param("date", "2018-11-11").
+                param("description", "Some visit description")).
+                andExpect(status().is3xxRedirection()).
+                andExpect(view().name("redirect:/owners/1")).
+                andExpect(model().attributeExists("visit"));
     }
 }
