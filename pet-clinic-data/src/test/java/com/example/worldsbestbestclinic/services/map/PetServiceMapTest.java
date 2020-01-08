@@ -23,6 +23,7 @@ class PetServiceMapTest {
     void findAll() {
         Set<Pet> petSet = petServiceMap.findAll();
         assertEquals(1, petSet.size());
+
     }
 
     @Test
